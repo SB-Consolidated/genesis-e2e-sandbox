@@ -1,49 +1,50 @@
 ---
-id: "TICKET-005"
-ticket_id: "TICKET-005"
-type: "feature"
-title: "Wire quality gates and execution scripts"
+id: TICKET-005
+ticket_id: TICKET-005
+type: feature
+title: Wire quality gates and execution scripts
 phase: 5
-status: "VERIFIED"
-state: "02_VERIFIED"
-owner_role: "Execution Agent"
-issued_by: "Coordinator Agent"
-issued_date: "2026-11-03"
-problem_statement: "Make quality checks deterministic and runnable through a single command set so Phase 5 execution evidence is consistent and governance-aligned."
-ui_reference_mode: "NOT_APPLICABLE"
-ui_reference_rationale: "E2E sandbox: no Approved-View.html artifacts exist; UI behavior is governed by Phase 2 screen specs."
+status: EXECUTING
+state: 02_VERIFIED
+owner_role: Execution Agent
+issued_by: Coordinator Agent
+issued_date: '2026-11-03'
+problem_statement: Make quality checks deterministic and runnable through a single command set so Phase 5 execution evidence is consistent and governance-aligned.
+ui_reference_mode: NOT_APPLICABLE
+ui_reference_rationale: 'E2E sandbox: no Approved-View.html artifacts exist; UI behavior is governed by Phase 2 screen specs.'
 scope_in:
-  - "Add npm scripts for typecheck, lint, build, unit tests, and headless E2E tests."
-  - "Configure CI workflow checks aligned with Phase 4 locked stack and project scripts."
-  - "Ensure script order and failure behavior are deterministic for completion evidence."
-  - "Document execution commands used for local and CI gates."
+  - Add npm scripts for typecheck, lint, build, unit tests, and headless E2E tests.
+  - Configure CI workflow checks aligned with Phase 4 locked stack and project scripts.
+  - Ensure script order and failure behavior are deterministic for completion evidence.
+  - Document execution commands used for local and CI gates.
 scope_out:
-  - "Feature development beyond quality gate wiring."
-  - "Infrastructure expansion beyond repo-local CI workflow and scripts."
-  - "Auth, multi-tenant, or external-service integrations."
+  - Feature development beyond quality gate wiring.
+  - Infrastructure expansion beyond repo-local CI workflow and scripts.
+  - Auth, multi-tenant, or external-service integrations.
 acceptance_criteria:
-  - "`npm run typecheck`, `npm run lint`, `npm run build`, `npm run test`, and headless E2E command are all defined and executable."
-  - "CI workflow runs the same quality checks and fails on any non-zero result."
-  - "Script outputs are sufficient for completion contract evidence collection."
-  - "No out-of-scope feature changes are introduced while wiring gates."
+  - '`npm run typecheck`, `npm run lint`, `npm run build`, `npm run test`, and headless E2E command are all defined and executable.'
+  - CI workflow runs the same quality checks and fails on any non-zero result.
+  - Script outputs are sufficient for completion contract evidence collection.
+  - No out-of-scope feature changes are introduced while wiring gates.
 acceptance_validation:
-  - "Local preflight command sequence exits 0 with deterministic ordering."
-  - "CI workflow configuration validates and runs required checks against the project."
-  - "Evidence package includes command outputs for all required quality gates."
+  - Local preflight command sequence exits 0 with deterministic ordering.
+  - CI workflow configuration validates and runs required checks against the project.
+  - Evidence package includes command outputs for all required quality gates.
 implementation_plan:
-  - "Define and standardize package scripts for all required quality gates."
-  - "Add lint/typecheck/build/test configurations where missing."
-  - "Create or update CI workflow to run the same checks in deterministic order."
-  - "Validate local and CI command parity and capture outputs."
-  - "Update project runbook/docs with the final quality gate commands."
+  - Define and standardize package scripts for all required quality gates.
+  - Add lint/typecheck/build/test configurations where missing.
+  - Create or update CI workflow to run the same checks in deterministic order.
+  - Validate local and CI command parity and capture outputs.
+  - Update project runbook/docs with the final quality gate commands.
 required_evidence:
-  - "Local command output logs for typecheck, lint, build, unit tests, and headless E2E tests."
-  - "CI workflow file and one successful run artifact reference."
-  - "Documentation snippet showing exact execution sequence."
+  - Local command output logs for typecheck, lint, build, unit tests, and headless E2E tests.
+  - CI workflow file and one successful run artifact reference.
+  - Documentation snippet showing exact execution sequence.
 completion_contract:
-  - "Provide command output evidence for all gate scripts with exit code 0."
-  - "Provide CI workflow evidence showing the same gate sequence is enforced."
-  - "Provide updated runbook/documentation evidence reflecting final script contracts."
+  - Provide command output evidence for all gate scripts with exit code 0.
+  - Provide CI workflow evidence showing the same gate sequence is enforced.
+  - Provide updated runbook/documentation evidence reflecting final script contracts.
+updated_at: '2026-11-04T05:11:24.473Z'
 ---
 
 # TICKET-005 - Wire quality gates and execution scripts
