@@ -1,50 +1,51 @@
 ---
-id: "TICKET-003"
-ticket_id: "TICKET-003"
-type: "feature"
-title: "Integrate API with UI state and error handling"
+id: TICKET-003
+ticket_id: TICKET-003
+type: feature
+title: Integrate API with UI state and error handling
 phase: 5
-status: "VERIFIED"
-state: "02_VERIFIED"
-owner_role: "Execution Agent"
+status: EXECUTING
+state: 02_VERIFIED
+owner_role: Execution Agent
 security_scope: true
-issued_by: "Coordinator Agent"
-issued_date: "2026-11-03"
-problem_statement: "Connect UI and backend API routes into one deterministic workflow so user actions consistently persist and recover from failures without leaving the single-page experience."
-ui_reference_mode: "NOT_APPLICABLE"
-ui_reference_rationale: "E2E sandbox: no Approved-View.html artifacts exist; UI behavior is governed by Phase 2 screen specs."
+issued_by: Coordinator Agent
+issued_date: '2026-11-03'
+problem_statement: Connect UI and backend API routes into one deterministic workflow so user actions consistently persist and recover from failures without leaving the single-page experience.
+ui_reference_mode: NOT_APPLICABLE
+ui_reference_rationale: 'E2E sandbox: no Approved-View.html artifacts exist; UI behavior is governed by Phase 2 screen specs.'
 scope_in:
-  - "Replace local-only UI task mutations with API-backed calls to task API routes."
-  - "Implement deterministic pending/success/error handling for add/toggle/delete."
-  - "Implement startup load/reload from API and preserve single-page UX behavior."
-  - "Ensure API failure handling is user-visible and recoverable without navigation changes."
+  - Replace local-only UI task mutations with API-backed calls to task API routes.
+  - Implement deterministic pending/success/error handling for add/toggle/delete.
+  - Implement startup load/reload from API and preserve single-page UX behavior.
+  - Ensure API failure handling is user-visible and recoverable without navigation changes.
 scope_out:
-  - "New API features outside CRUD contract."
-  - "Authentication and authorization systems."
-  - "Multi-tenant data behavior."
+  - New API features outside CRUD contract.
+  - Authentication and authorization systems.
+  - Multi-tenant data behavior.
 acceptance_criteria:
-  - "Add, toggle, reopen, and delete actions call API routes and persist correctly."
-  - "API errors render user-visible status messages and preserve recoverable UI state."
-  - "UI remains keyboard-accessible and route-free while integrated with API."
-  - "Completed tasks remain ordered at the bottom after API-backed state updates."
+  - Add, toggle, reopen, and delete actions call API routes and persist correctly.
+  - API errors render user-visible status messages and preserve recoverable UI state.
+  - UI remains keyboard-accessible and route-free while integrated with API.
+  - Completed tasks remain ordered at the bottom after API-backed state updates.
 acceptance_validation:
-  - "End-to-end tests pass for add, list, complete/reopen, delete, restart persistence, and error handling."
-  - "Manual verification confirms deterministic behavior under API route failures (validation and not-found)."
-  - "No fallback local-only mutation path bypasses API route contract in production flow."
+  - End-to-end tests pass for add, list, complete/reopen, delete, restart persistence, and error handling.
+  - Manual verification confirms deterministic behavior under API route failures (validation and not-found).
+  - No fallback local-only mutation path bypasses API route contract in production flow.
 implementation_plan:
-  - "Implement typed API client wrapper for CRUD API routes."
-  - "Refactor UI actions to use API client with deterministic state transitions."
-  - "Add error-state rendering and retry behavior matching UX specifications."
-  - "Add integration and unit tests for API/UI interaction paths."
-  - "Verify end-to-end behavior and collect evidence artifacts."
+  - Implement typed API client wrapper for CRUD API routes.
+  - Refactor UI actions to use API client with deterministic state transitions.
+  - Add error-state rendering and retry behavior matching UX specifications.
+  - Add integration and unit tests for API/UI interaction paths.
+  - Verify end-to-end behavior and collect evidence artifacts.
 required_evidence:
-  - "End-to-end test artifacts for full task lifecycle and error recovery."
-  - "Unit test output for API client behavior and error mapping."
-  - "Manual evidence demonstrating persistence across restart with API-backed flow."
+  - End-to-end test artifacts for full task lifecycle and error recovery.
+  - Unit test output for API client behavior and error mapping.
+  - Manual evidence demonstrating persistence across restart with API-backed flow.
 completion_contract:
-  - "Provide headless E2E evidence for API-backed add/toggle/delete/reload behavior."
-  - "Provide unit and integration test output with pass status."
-  - "Provide failure-path evidence for validation and not-found responses."
+  - Provide headless E2E evidence for API-backed add/toggle/delete/reload behavior.
+  - Provide unit and integration test output with pass status.
+  - Provide failure-path evidence for validation and not-found responses.
+updated_at: '2026-11-04T03:28:38.603Z'
 ---
 
 # TICKET-003 - Integrate API with UI state and error handling
