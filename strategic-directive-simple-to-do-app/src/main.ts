@@ -173,7 +173,7 @@ form.addEventListener("submit", async (event) => {
   setStatus("Adding task...");
 
   try {
-    const newTask = await client.createTask(title);
+    await client.createTask(title);
     tasks = await client.listTasks();
     render();
     input.value = "";

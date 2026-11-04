@@ -22,12 +22,7 @@ async function requestJson<T>(path: string, init: RequestInit = {}, baseUrl = ""
     },
   });
 
-  let payload: unknown = {};
-  try {
-    payload = await response.json();
-  } catch {
-    payload = {};
-  }
+  const payload = (await response.json().catch(() => ({}))) as unknown;
 
   if (!response.ok) {
     const message = typeof (payload as { error?: string })?.error === "string" ? (payload as { error: string }).error : `Request failed with status ${response.status}`;
