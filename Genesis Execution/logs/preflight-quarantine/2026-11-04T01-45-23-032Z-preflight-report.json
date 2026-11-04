@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-11-04T01:45:23.032Z",
+  "stage": "IMPLEMENTING",
+  "clean": true,
+  "quarantinedArtifacts": [],
+  "findings": [
+    {
+      "severity": "info",
+      "message": "TICKET-002 remains in 02_VERIFIED. Resume will request or reuse authorization before execution."
+    }
+  ],
+  "unauthorizedExecutingTickets": []
+}
