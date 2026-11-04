@@ -25,7 +25,7 @@ const apiPort = Number(getArg("api-port", "3000"));
 const tasksFilePath = process.env.TASKS_FILE_PATH || path.join(process.cwd(), "data", "tasks.json");
 
 if (process.platform === "linux") {
-  const cleaner = spawn("bash", ["-lc", "fuser -k 3000/tcp >/dev/null 2>&1 || true"], { stdio: "ignore" });
+  const cleaner = spawn("bash", ["-lc", "fuser -k 3000/tcp >/dev/null 2>&1 || true; fuser -k 4173/tcp >/dev/null 2>&1 || true; fuser -k 5173/tcp >/dev/null 2>&1 || true"], { stdio: "ignore" });
   cleaner.on("exit", () => undefined);
 }
 

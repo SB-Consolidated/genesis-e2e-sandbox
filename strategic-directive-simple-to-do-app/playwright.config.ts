@@ -14,7 +14,11 @@ export default defineConfig({
     video: "retain-on-failure",
   },
   webServer: {
-    command: "bash -lc 'fuser -k 3000/tcp >/dev/null 2>&1 || true; rm -f /tmp/genesis-task-api-e2e.json; TASKS_FILE_PATH=/tmp/genesis-task-api-e2e.json npm run dev -- --host 127.0.0.1 --port 4173'",
+    command: [
+      "bash",
+      "-lc",
+      "fuser -k 3000/tcp >/dev/null 2>&1 || true; fuser -k 4173/tcp >/dev/null 2>&1 || true; fuser -k 5173/tcp >/dev/null 2>&1 || true; rm -f /tmp/genesis-task-api-e2e.json; TASKS_FILE_PATH=/tmp/genesis-task-api-e2e.json PORT=3000 node --experimental-strip-types server/server.ts >/tmp/genesis-task-api-e2e.log 2>&1 & for i in $(seq 1 120); do curl -fsS http://127.0.0.1:3000/health >/dev/null && break; sleep 0.5; done; npx vite --host 127.0.0.1 --port 4173 --strictPort",
+    ].join(" "),
     url: "http://127.0.0.1:4173",
     reuseExistingServer: false,
     timeout: 120000,
