@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "dataSensitivity": "none",
+  "tenancy": "single-tenant",
+  "regulations": [
+    "none"
+  ],
+  "userAuthenticationRequired": false,
+  "aiUseWithCustomerData": false,
+  "riskTier": "low",
+  "approvedBy": "Brad DeMarco (test)",
+  "approvedAt": "2026-11-03T22:11:05.272Z"
+}

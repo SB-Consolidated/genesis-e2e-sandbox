@@ -1,0 +1,34 @@
+{
+  "servers": {
+    "governanceRegistry": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["servers/governance-registry.js"],
+      "env": {},
+      "description": "Query and access Genesis governance documents, versions, and compliance information"
+    },
+    "ticketLifecycle": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["servers/ticket-lifecycle.js"],
+      "env": {},
+      "description": "Manage ticket state transitions, validate prerequisites, record state changes with governance compliance"
+    },
+    "authorityMatrix": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["servers/authority-matrix.js"],
+      "env": {},
+      "description": "Check authorization for actions, verify role authority, validate scope and boundaries"
+    },
+    "auditTrail": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["servers/audit-trail.js"],
+      "env": {},
+      "description": "Record all governance actions, generate compliance reports, maintain audit logs for governance review"
+    }
+  },
+  "inputs": [],
+  "description": "Genesis v0.8 MCP Server Configuration - Governance & Compliance Infrastructure"
+}

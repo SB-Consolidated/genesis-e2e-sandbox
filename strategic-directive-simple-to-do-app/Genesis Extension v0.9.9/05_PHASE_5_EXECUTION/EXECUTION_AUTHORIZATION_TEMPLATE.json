@@ -1,0 +1,58 @@
+{
+  "template": "EXECUTION_AUTHORIZATION_TEMPLATE",
+  "version": "v0.9.9",
+  "description": "Canonical authorization artifact for Genesis Extension Phase 5 execution.",
+  "schema": {
+    "status": {
+      "type": "enum",
+      "values": ["AUTHORIZED", "DENIED"],
+      "default": "DENIED"
+    },
+    "mode": {
+      "type": "enum",
+      "values": ["single", "batch"],
+      "default": "single"
+    },
+    "authorizedBy": {
+      "type": "string",
+      "required": true
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "ISO-8601",
+      "required": true
+    },
+    "dependencyMatrixVersion": {
+      "type": "string",
+      "required": true
+    },
+    "authorizedTickets": {
+      "type": "array",
+      "required": true,
+      "items": {
+        "ticketId": {
+          "type": "string",
+          "pattern": "^TICKET-\\d{3}$",
+          "required": true
+        },
+        "executionOrder": {
+          "type": "number",
+          "required": true
+        },
+        "executionType": {
+          "type": "enum",
+          "values": ["sequential", "parallel"],
+          "required": true
+        },
+        "dependencies": {
+          "type": "array",
+          "required": true
+        },
+        "dependenciesMet": {
+          "type": "boolean",
+          "required": true
+        }
+      }
+    }
+  }
+}

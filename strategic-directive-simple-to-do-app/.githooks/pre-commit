@@ -1,0 +1,4 @@
+#!/bin/sh
+# Genesis pre-commit hook: refuses commits that stage secrets or local connection state.
+# Installed by Genesis bootstrap; git runs it through core.hooksPath=.githooks.
+exec node "$(dirname "$0")/genesis-secret-scan.js"

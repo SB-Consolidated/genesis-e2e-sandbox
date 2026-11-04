@@ -1,0 +1,17 @@
+{
+  "github": {
+    "url": "https://github.com/SB-Consolidated/genesis-e2e-sandbox",
+    "cloneUrl": "https://github.com/SB-Consolidated/genesis-e2e-sandbox.git",
+    "hasToken": false,
+    "connectionStatus": "validated",
+    "owner": "SB-Consolidated",
+    "repository": "genesis-e2e-sandbox",
+    "defaultBranch": "main",
+    "visibility": "public",
+    "validatedAt": "2026-11-03T23:17:29.175Z"
+  },
+  "local": {
+    "path": "/workspace/genesis-e2e/app",
+    "workspaceName": "app"
+  }
+}

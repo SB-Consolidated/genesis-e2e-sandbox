@@ -1,0 +1,46 @@
+{
+  "state": "IN_PROGRESS",
+  "tickets": [
+    {
+      "id": "TICKET-001",
+      "filename": "TICKET-001.md",
+      "state": "EXECUTING",
+      "currentFolder": "03_EXECUTING",
+      "retryCount": 0,
+      "startedAt": 1793751711517
+    },
+    {
+      "id": "TICKET-002",
+      "filename": "TICKET-002.md",
+      "state": "PENDING",
+      "currentFolder": "02_VERIFIED",
+      "retryCount": 0
+    },
+    {
+      "id": "TICKET-003",
+      "filename": "TICKET-003.md",
+      "state": "PENDING",
+      "currentFolder": "02_VERIFIED",
+      "retryCount": 0
+    },
+    {
+      "id": "TICKET-004",
+      "filename": "TICKET-004.md",
+      "state": "PENDING",
+      "currentFolder": "02_VERIFIED",
+      "retryCount": 0
+    },
+    {
+      "id": "TICKET-005",
+      "filename": "TICKET-005.md",
+      "state": "PENDING",
+      "currentFolder": "02_VERIFIED",
+      "retryCount": 0
+    }
+  ],
+  "currentTicketIndex": 0,
+  "startedAt": 1793749708000,
+  "totalTickets": 5,
+  "completedTickets": 0,
+  "issueTickets": 0
+}

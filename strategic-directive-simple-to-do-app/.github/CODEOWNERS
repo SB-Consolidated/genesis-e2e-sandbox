@@ -1,0 +1,7 @@
+# Genesis v0.9.9 CODEOWNERS
+* @founder
+/src/governance/ @founder
+/src/core/ @founder
+/src/commercial/ @founder
+/.github/ @founder
+/CODEOWNERS @founder

@@ -1,0 +1,116 @@
+name: Screen Generation Agent
+
+on:
+  workflow_dispatch:
+    inputs:
+      workspaceId:
+        description: 'Workspace ID'
+        required: true
+      founderName:
+        description: 'Founder name'
+        required: false
+        default: 'Founder'
+      strategicDirectivePath:
+        description: 'Path to Strategic Directive (relative to repo root)'
+        required: true
+        default: 'Genesis Execution/specs/Application Specs/Strategic-Directive.md'
+      runnerLabel:
+        description: 'Runner label (e.g., ubuntu-latest or self-hosted; a self-hosted runner must be version 2.327.1 or newer for the Node 24 actions)'
+        required: false
+        default: 'ubuntu-latest'
+
+permissions:
+  contents: read
+
+jobs:
+  generate-screens:
+    runs-on: ${{ github.event.inputs.runnerLabel }}
+    timeout-minutes: 30
+    permissions:
+      contents: write # commits generated screens
+      models: read # GitHub Models inference via GITHUB_TOKEN
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '18'
+
+      - name: Run Screen Generation Agent
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WORKSPACE_ID: ${{ github.event.inputs.workspaceId }}
+          FOUNDER_NAME: ${{ github.event.inputs.founderName }}
+          STRATEGIC_DIRECTIVE_PATH: ${{ github.event.inputs.strategicDirectivePath }}
+        run: node .github/scripts/screen-build-agent.js
+
+      - name: Commit generated screens
+        if: success()
+        run: |
+          git config --local user.email "genesis-agent@github.com"
+          git config --local user.name "Genesis Screen Build Agent"
+          git add "Genesis Execution/specs/UX Specs/" 2>/dev/null || true
+          git add .screen-generation-manifest.json 2>/dev/null || true
+          if ! git diff --quiet --cached; then
+            git commit -m "Screen generation by Cloud Agent - Genesis Phase 2 (Genesis v0.9.9)"
+            
+            # Push with retry logic to handle race conditions
+            MAX_RETRIES=3
+            RETRY_COUNT=0
+            PUSH_SUCCESS=false
+            
+            while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
+              echo "Push attempt $((RETRY_COUNT + 1)) of $MAX_RETRIES..."
+              
+              # Pull latest changes with rebase to stay in sync
+              echo "Pulling latest changes..."
+              if git pull --rebase origin main; then
+                echo "✓ Successfully synced with remote"
+              else
+                echo "⚠ Rebase failed, trying merge strategy..."
+                git rebase --abort 2>/dev/null || true
+                git pull --no-rebase origin main
+              fi
+              
+              # Attempt to push
+              if git push; then
+                echo "✅ Screen generation committed and pushed successfully"
+                PUSH_SUCCESS=true
+                break
+              else
+                RETRY_COUNT=$((RETRY_COUNT + 1))
+                if [ $RETRY_COUNT -lt $MAX_RETRIES ]; then
+                  WAIT_TIME=$((2 ** (RETRY_COUNT - 1)))
+                  echo "Push failed, waiting ${WAIT_TIME}s before retry..."
+                  sleep $WAIT_TIME
+                fi
+              fi
+            done
+            
+            if [ "$PUSH_SUCCESS" = false ]; then
+              echo "❌ Failed to push after $MAX_RETRIES attempts"
+              exit 1
+            fi
+          else
+            echo "No changes to commit"
+          fi
+        continue-on-error: true
+
+      - name: Upload error manifest on failure
+        if: failure()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: screen-generation-error
+          path: .screen-generation-error.json
+
+      - name: Upload completion manifest on success
+        if: success()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: screen-generation-manifest
+          path: .screen-generation-manifest.json

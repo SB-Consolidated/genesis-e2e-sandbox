@@ -1,0 +1,31 @@
+{
+  "generated": "2026-11-03T23:28:03Z",
+  "total_tickets": 5,
+  "tickets": [
+    {
+      "id": "TICKET-001",
+      "title": "Implement core API routes and JSON persistence",
+      "description": "Build API routes for create, list, update-complete, and delete task operations with atomic local JSON file persistence and input validation. Authentication, authorization, secrets, and tenant data are not applicable for this single-user local MVP, but API routes are in scope."
+    },
+    {
+      "id": "TICKET-002",
+      "title": "Build single-page task list interface",
+      "description": "Implement the mobile-friendly single-page UI with top inline add field, checkbox completion toggle, and delete icon without confirmation. Completed tasks must always sort to the bottom with no separate add or detail route."
+    },
+    {
+      "id": "TICKET-003",
+      "title": "Integrate API with UI state and error handling",
+      "description": "Connect the task-list UI to backend API routes and implement deterministic success/error behavior for add, toggle, and delete actions. Ensure accessibility semantics, keyboard support, and resilient retry/recovery flows from the UX specifications."
+    },
+    {
+      "id": "TICKET-004",
+      "title": "Add automated test coverage for MVP flows",
+      "description": "Create unit and headless Playwright tests for add, list, complete/reopen, delete, ordering, and persistence across restart/refresh behavior. Include API routes verification coverage in test scenarios and enforce repeatable local pass criteria."
+    },
+    {
+      "id": "TICKET-005",
+      "title": "Wire quality gates and execution scripts",
+      "description": "Finalize project scripts and CI checks for typecheck, lint, build, and test execution in alignment with Phase 4 locked tooling and Phase 5 evidence expectations. Keep scope focused on MVP reliability with no out-of-scope feature expansion."
+    }
+  ]
+}
