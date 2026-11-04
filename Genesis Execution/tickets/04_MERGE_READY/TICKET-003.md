@@ -4,7 +4,7 @@ ticket_id: TICKET-003
 type: feature
 title: Integrate API with UI state and error handling
 phase: 5
-status: EXECUTING
+status: MERGE_READY
 state: 02_VERIFIED
 owner_role: Execution Agent
 security_scope: true
@@ -45,7 +45,7 @@ completion_contract:
   - Provide headless E2E evidence for API-backed add/toggle/delete/reload behavior.
   - Provide unit and integration test output with pass status.
   - Provide failure-path evidence for validation and not-found responses.
-updated_at: '2026-11-04T03:28:38.603Z'
+updated_at: '2026-11-04T04:39:28.387Z'
 ---
 
 # TICKET-003 - Integrate API with UI state and error handling
