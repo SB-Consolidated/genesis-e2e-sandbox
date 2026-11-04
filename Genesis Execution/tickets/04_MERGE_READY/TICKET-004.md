@@ -4,7 +4,7 @@ ticket_id: TICKET-004
 type: feature
 title: Add automated test coverage for MVP flows
 phase: 5
-status: EXECUTING
+status: MERGE_READY
 state: 02_VERIFIED
 owner_role: Execution Agent
 security_scope: true
@@ -46,7 +46,7 @@ completion_contract:
   - Provide command outputs for unit and headless E2E test suites with exit code 0.
   - Provide test matrix mapping from acceptance criteria to implemented test cases.
   - Provide evidence artifacts required by configured Playwright reporting behavior.
-updated_at: '2026-11-04T04:44:40.075Z'
+updated_at: '2026-11-04T05:02:56.905Z'
 ---
 
 # TICKET-004 - Add automated test coverage for MVP flows
