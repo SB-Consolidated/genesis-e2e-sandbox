@@ -1,8 +1,8 @@
 import http from "node:http";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { createTaskStorage } from "./storage/tasks-storage";
-import { handleTaskRoutes } from "./routes/tasks";
+import { createTaskStorage } from "./storage/tasks-storage.ts";
+import { handleTaskRoutes } from "./routes/tasks.ts";
 
 type ServerOptions = {
   tasksFilePath?: string;

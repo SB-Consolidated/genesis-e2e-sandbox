@@ -14,7 +14,7 @@ export default defineConfig({
     video: "retain-on-failure",
   },
   webServer: {
-    command: "npm run dev -- --host 127.0.0.1 --port 4173",
+    command: "rm -f /tmp/genesis-task-api-e2e.json && TASKS_FILE_PATH=/tmp/genesis-task-api-e2e.json PORT=3000 node --experimental-strip-types server/server.ts & npm run dev -- --host 127.0.0.1 --port 4173",
     url: "http://127.0.0.1:4173",
     reuseExistingServer: !process.env.CI,
     timeout: 120000,
