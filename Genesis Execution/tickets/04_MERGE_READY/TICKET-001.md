@@ -4,7 +4,7 @@ ticket_id: TICKET-001
 type: feature
 title: Implement core API routes and JSON persistence
 phase: 5
-status: EXECUTING
+status: MERGE_READY
 state: 02_VERIFIED
 owner_role: Execution Agent
 security_scope: true
@@ -45,7 +45,7 @@ completion_contract:
   - Provide command output for automated tests that validate API routes and persistence.
   - Provide route behavior evidence for create/list/update/delete and validation failures.
   - Provide persisted-file evidence confirming restart durability.
-updated_at: '2026-11-04T00:42:09.622Z'
+updated_at: '2026-11-04T01:05:55.023Z'
 ---
 
 # TICKET-001 - Implement core API routes and JSON persistence
