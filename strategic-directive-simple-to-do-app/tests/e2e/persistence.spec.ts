@@ -12,6 +12,11 @@ async function clearTaskApiState() {
   }
 }
 
+test.beforeEach(async ({ page }) => {
+  await clearTaskApiState();
+  await page.goto("/");
+});
+
 test("persistence survives refresh and restart for API-backed task state", async ({ page }) => {
   await clearTaskApiState();
 

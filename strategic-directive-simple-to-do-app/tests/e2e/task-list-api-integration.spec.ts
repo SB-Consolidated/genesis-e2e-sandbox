@@ -12,6 +12,11 @@ async function clearTaskApiState() {
   }
 }
 
+test.beforeEach(async ({ page }) => {
+  await clearTaskApiState();
+  await page.goto("/");
+});
+
 test("task list loads from the API and stays single-page", async ({ page }) => {
   await clearTaskApiState();
 

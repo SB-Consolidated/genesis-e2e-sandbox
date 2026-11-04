@@ -20,10 +20,10 @@
   - Evidence: 4 test files passed, 10 tests passed
 - Browser tests for UI work: PASS
   - Command: `cd /workspace/genesis-e2e/app/strategic-directive-simple-to-do-app && npm run ui:e2e`
-  - Evidence: 5 Playwright E2E tests passed (2.4s)
-- GitHub PR check: PASS
-  - Command: `cd /workspace/genesis-e2e/app && GH_FORCE_TTY=0 gh pr checks 5`
-  - Evidence: 1 successful check, 0 failing, 0 pending
+  - Evidence: 5 Playwright E2E tests passed (3.0s) after fixing the server-readiness race and clearing API state between tests
+- GitHub PR check: PENDING FRESH HEAD
+  - Command: `cd /workspace/genesis-e2e/app && gh pr checks 5 --repo SB-Consolidated/genesis-e2e-sandbox`
+  - Evidence: awaiting a fresh GitHub Actions run on the updated branch head after push
 
 ## Success Criteria Verification
 - `npm run typecheck`, `npm run lint`, `npm run build`, `npm run test`, and headless E2E command are all defined and executable: PASS
@@ -63,6 +63,8 @@
 - The repo-root workflow is the single source of truth. The nested duplicate workflow file was removed to avoid GitHub ignoring the nested path.
 - CI runtime was aligned to Node 24 to match the app’s supported runtime for the server startup flags used by the project.
 - Playwright startup ordering was stabilized by waiting for the app API health endpoint before running the UI tests, preventing race conditions during CI startup.
+- E2E isolation was tightened by clearing task state before each test so one test no longer leaves shared API state behind for the next test.
 
 ## Status Marker
 Status: READY_FOR_REVIEW
+Current branch head: awaiting fresh GitHub PR check after push of the readiness/isolation fix.

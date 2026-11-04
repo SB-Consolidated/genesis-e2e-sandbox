@@ -17,6 +17,7 @@ test.beforeEach(async ({ page }) => {
   await page.goto("/");
   await page.evaluate(() => localStorage.clear());
   await page.reload();
+  await clearTaskApiState();
 });
 
 test("single-page task list supports add, toggle, and delete interactions", async ({ page }) => {
