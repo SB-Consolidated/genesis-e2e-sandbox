@@ -1,12 +1,14 @@
 {
-  "authorized_tickets": ["TICKET-001"],
-  "authorized_by": "Coordinator Agent",
-  "authorized_at": "2026-11-03T23:50:40Z",
-  "scope": "Phase 5 implementation per TICKET_LIFECYCLE.md",
+  "authorized_tickets": [
+    "TICKET-002"
+  ],
+  "authorized_by": "TicketImplementationService",
+  "authorized_at": "2026-11-04T01:45:23.566Z",
+  "scope": "Recovered authorization for next dependency-eligible Phase 5 ticket.",
   "dependency_check": {
-    "TICKET-001": {
+    "TICKET-002": {
       "dependencies_met": true,
-      "executionOrder": 1
+      "executionOrder": 2
     }
   }
 }

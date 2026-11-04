@@ -4,17 +4,60 @@
     {
       "id": "TICKET-001",
       "filename": "TICKET-001.md",
-      "state": "EXECUTING",
-      "currentFolder": "03_EXECUTING",
-      "retryCount": 0,
-      "startedAt": 1793751711517
+      "state": "COMPLETE",
+      "currentFolder": "05_COMPLETE",
+      "retryCount": 1,
+      "startedAt": 1793751711517,
+      "issueHistory": [
+        {
+          "timestamp": "2026-11-04T00:46:49.177Z",
+          "stage": "COORDINATOR",
+          "summary": "Governed merge-ready admission was refused.",
+          "detail": "Governed 03_EXECUTING -> 04_MERGE_READY transition was refused for TICKET-001: Transition contract failed before MERGE_READY: EVIDENCE_MISSING, PR_MISSING, REQUIRED_CHECKS_FAILED",
+          "resolutionHint": "Record the missing completion evidence or fix the refused gate before retrying merge review."
+        },
+        {
+          "timestamp": "2026-11-04T01:15:56.589Z",
+          "stage": "MERGE",
+          "summary": "Coordinator merge review timed out.",
+          "detail": "Coordinator merge timeout (after retry)",
+          "resolutionHint": "Inspect merge blockers, PR checks, and branch policy before retrying merge review."
+        }
+      ],
+      "completedAt": 1793756672712
     },
     {
       "id": "TICKET-002",
       "filename": "TICKET-002.md",
-      "state": "PENDING",
-      "currentFolder": "02_VERIFIED",
-      "retryCount": 0
+      "state": "AWAITING_GUIDANCE",
+      "currentFolder": "03_EXECUTING",
+      "retryCount": 2,
+      "startedAt": 1793756723567,
+      "issueDescription": "The merge-ready transition for TICKET-002 was refused because the repository state did not match the required branch and PR contract: branch mismatch (current branch was ticket/TICKET-001), required completion evidence was incomplete, and the TICKET-002 PR was missing. This blocked 03_EXECUTING -> 04_MERGE_READY until the proper TICKET-002 branch and PR-aligned evidence existed.",
+      "issueHistory": [
+        {
+          "timestamp": "2026-11-04T01:52:18.914Z",
+          "stage": "EXECUTION",
+          "summary": "Execution Agent reported a blocker.",
+          "detail": "The task UI implementation and governance-required Playwright suite are in place, but the local environment cannot complete the headless browser validation because the Playwright Chromium executable is missing. Running `npm run ui:e2e` fails with: 'Executable doesn't exist ... chrome-headless-shell'. This blocks final UI evidence even though the app logic, unit tests, typecheck, and production build are passing.",
+          "resolutionHint": "Use Coordinator guidance to scope the blocker before the next retry."
+        },
+        {
+          "timestamp": "2026-11-04T01:59:29.258Z",
+          "stage": "COORDINATOR",
+          "summary": "Governed merge-ready admission was refused.",
+          "detail": "Governed 03_EXECUTING -> 04_MERGE_READY transition was refused for TICKET-002: Transition contract failed before MERGE_READY: BRANCH_TICKET_MISMATCH, EVIDENCE_MISSING, PR_MISSING, REQUIRED_CHECKS_FAILED",
+          "resolutionHint": "Record the missing completion evidence or fix the refused gate before retrying merge review."
+        },
+        {
+          "timestamp": "2026-11-04T02:03:36.818Z",
+          "stage": "EXECUTION",
+          "summary": "Execution Agent reported a blocker.",
+          "detail": "The merge-ready transition for TICKET-002 was refused because the repository state did not match the required branch and PR contract: branch mismatch (current branch was ticket/TICKET-001), required completion evidence was incomplete, and the TICKET-002 PR was missing. This blocked 03_EXECUTING -> 04_MERGE_READY until the proper TICKET-002 branch and PR-aligned evidence existed.",
+          "resolutionHint": "Use Coordinator guidance to scope the blocker before the next retry."
+        }
+      ],
+      "guidanceReceived": "This is an execution-side remediation. The ticket scope itself is already satisfied, but the merge gate is failing because the branch, PR, and required verification evidence do not match the ticket contract. Fix the ticket workflow before retrying the 03_EXECUTING -> 04_MERGE_READY transition.\n\n1. Confirm the branch and commit are aligned to TICKET-002 and use the required ticket naming pattern. If the current branch is not a ticket branch for TICKET-002, create or switch to the correct ticket branch before continuing.\n2. Ensure the working tree is clean and rebased on the canonical integration branch used by the repository. Remove any stray or stale local changes unrelated to TICKET-002.\n3. Re-run the required validation commands from the app folder and capture fresh output: `npm test`, `npm run typecheck`, `npm run build`, and `npm run ui:e2e`. Do not claim completion without passing output from each required gate.\n4. Produce the PR that matches TICKET-002, or ensure the existing PR is correctly opened against the repository's main branch and tied to the ticket branch. The transition contract requires a valid PR URL and an exact branch-to-ticket match.\n5. Re-check the required checks for the PR: compile/typecheck, tests, build, and Playwright headless UI validation. Resolve any failing job before retrying the transition.\n6. Update the completion contract at `Genesis Execution/tickets/completion-contracts/TICKET-002.contract.md` with the final verification evidence, the branch name, the PR URL, and the exact pass/fail status for each Acceptance Criterion.\n7. Only after the branch, PR, and evidence all align should the Execution Agent retry the governed transition.\n\nDo not ask the Coordinator to create or approve the merge lane until the ticket branch, PR, and evidence are corrected within the ticket workflow. This remains within Execution Agent scope."
     },
     {
       "id": "TICKET-003",
@@ -38,9 +81,9 @@
       "retryCount": 0
     }
   ],
-  "currentTicketIndex": 0,
+  "currentTicketIndex": 1,
   "startedAt": 1793749708000,
   "totalTickets": 5,
-  "completedTickets": 0,
-  "issueTickets": 0
+  "completedTickets": 1,
+  "issueTickets": 3
 }

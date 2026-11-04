@@ -9,7 +9,9 @@
     "build": "vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "ui:e2e": "playwright test --reporter=line",
+    "ui:e2e:headed": "playwright test --headed --reporter=line"
   },
   "keywords": [],
   "author": "",

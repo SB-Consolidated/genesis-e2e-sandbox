@@ -1,0 +1,7 @@
+{
+  "ticketId": "TICKET-002",
+  "description": "The merge-ready transition for TICKET-002 was refused because the repository state did not match the required branch and PR contract: branch mismatch (current branch was ticket/TICKET-001), required completion evidence was incomplete, and the TICKET-002 PR was missing. This blocked 03_EXECUTING -> 04_MERGE_READY until the proper TICKET-002 branch and PR-aligned evidence existed.",
+  "timestamp": "2026-11-04T21:00:00.000Z",
+  "reportedBy": "Execution Agent",
+  "category": "technical_blocker"
+}
