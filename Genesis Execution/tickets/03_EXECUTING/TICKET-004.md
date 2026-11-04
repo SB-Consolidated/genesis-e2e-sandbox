@@ -1,51 +1,52 @@
 ---
-id: "TICKET-004"
-ticket_id: "TICKET-004"
-type: "feature"
-title: "Add automated test coverage for MVP flows"
+id: TICKET-004
+ticket_id: TICKET-004
+type: feature
+title: Add automated test coverage for MVP flows
 phase: 5
-status: "VERIFIED"
-state: "02_VERIFIED"
-owner_role: "Execution Agent"
+status: EXECUTING
+state: 02_VERIFIED
+owner_role: Execution Agent
 security_scope: true
-issued_by: "Coordinator Agent"
-issued_date: "2026-11-03"
-problem_statement: "Establish deterministic automated verification for all MVP task flows so execution quality is measurable, repeatable, and governance-ready."
-ui_reference_mode: "NOT_APPLICABLE"
-ui_reference_rationale: "E2E sandbox: no Approved-View.html artifacts exist; UI behavior is governed by Phase 2 screen specs."
+issued_by: Coordinator Agent
+issued_date: '2026-11-03'
+problem_statement: Establish deterministic automated verification for all MVP task flows so execution quality is measurable, repeatable, and governance-ready.
+ui_reference_mode: NOT_APPLICABLE
+ui_reference_rationale: 'E2E sandbox: no Approved-View.html artifacts exist; UI behavior is governed by Phase 2 screen specs.'
 scope_in:
-  - "Add unit tests for task model validation, ordering behavior, and API client/handler logic."
-  - "Add headless Playwright tests for single-page add/list/complete/reopen/delete flows."
-  - "Add persistence verification scenarios across refresh and restart."
-  - "Add deterministic test fixtures and scripts for repeatable local runs."
+  - Add unit tests for task model validation, ordering behavior, and API client/handler logic.
+  - Add headless Playwright tests for single-page add/list/complete/reopen/delete flows.
+  - Add persistence verification scenarios across refresh and restart.
+  - Add deterministic test fixtures and scripts for repeatable local runs.
 scope_out:
-  - "New user-facing features outside approved MVP flows."
-  - "Authentication and authorization systems."
-  - "Non-headless-only acceptance evidence as a replacement for headless tests."
+  - New user-facing features outside approved MVP flows.
+  - Authentication and authorization systems.
+  - Non-headless-only acceptance evidence as a replacement for headless tests.
 acceptance_criteria:
-  - "Unit tests cover task input validation, completion toggling, and ordering rules."
-  - "Playwright headless tests cover add/list/complete/reopen/delete and completed-at-bottom behavior."
-  - "Tests verify no separate add/detail route behavior remains true."
-  - "Tests verify persistence across refresh and restart for API-backed task state."
-  - "Local test command suite is repeatable with stable pass/fail outcomes."
+  - Unit tests cover task input validation, completion toggling, and ordering rules.
+  - Playwright headless tests cover add/list/complete/reopen/delete and completed-at-bottom behavior.
+  - Tests verify no separate add/detail route behavior remains true.
+  - Tests verify persistence across refresh and restart for API-backed task state.
+  - Local test command suite is repeatable with stable pass/fail outcomes.
 acceptance_validation:
-  - "`npm run test` exits 0 with required unit coverage for MVP behavior."
-  - "`npm run ui:e2e` or equivalent headless Playwright command exits 0 and validates MVP flows."
-  - "Test artifacts (report/trace/screenshot on failure path) are generated per configured behavior."
+  - '`npm run test` exits 0 with required unit coverage for MVP behavior.'
+  - '`npm run ui:e2e` or equivalent headless Playwright command exits 0 and validates MVP flows.'
+  - Test artifacts (report/trace/screenshot on failure path) are generated per configured behavior.
 implementation_plan:
-  - "Define test matrix from strategic directive and Phase 2 acceptance criteria."
-  - "Implement unit tests for task logic and API behavior."
-  - "Implement headless Playwright scenarios for end-to-end flows."
-  - "Add persistence and error-path scenarios for restart/refresh behavior."
-  - "Validate repeatability with consecutive local runs and capture evidence."
+  - Define test matrix from strategic directive and Phase 2 acceptance criteria.
+  - Implement unit tests for task logic and API behavior.
+  - Implement headless Playwright scenarios for end-to-end flows.
+  - Add persistence and error-path scenarios for restart/refresh behavior.
+  - Validate repeatability with consecutive local runs and capture evidence.
 required_evidence:
-  - "Unit test run output proving coverage of MVP logic and API behavior."
-  - "Playwright headless run output with scenario-level pass status."
-  - "Persistence scenario evidence for refresh and restart conditions."
+  - Unit test run output proving coverage of MVP logic and API behavior.
+  - Playwright headless run output with scenario-level pass status.
+  - Persistence scenario evidence for refresh and restart conditions.
 completion_contract:
-  - "Provide command outputs for unit and headless E2E test suites with exit code 0."
-  - "Provide test matrix mapping from acceptance criteria to implemented test cases."
-  - "Provide evidence artifacts required by configured Playwright reporting behavior."
+  - Provide command outputs for unit and headless E2E test suites with exit code 0.
+  - Provide test matrix mapping from acceptance criteria to implemented test cases.
+  - Provide evidence artifacts required by configured Playwright reporting behavior.
+updated_at: '2026-11-04T04:44:40.075Z'
 ---
 
 # TICKET-004 - Add automated test coverage for MVP flows
