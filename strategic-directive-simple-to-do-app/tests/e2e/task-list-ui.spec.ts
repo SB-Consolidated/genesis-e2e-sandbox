@@ -56,14 +56,18 @@ test("single-page task list supports add, toggle, and delete interactions", asyn
 
 test("completed tasks render below incomplete tasks without creating routes", async ({ page }) => {
   const taskInput = page.locator("#task-input");
+  const items = page.locator("#task-list li");
 
   await taskInput.fill("First task");
   await taskInput.press("Enter");
+  await expect(items).toHaveCount(1);
+  await expect(items.first()).toContainText("First task");
+
   await taskInput.fill("Second task");
   await taskInput.press("Enter");
-
-  const items = page.locator("#task-list li");
   await expect(items).toHaveCount(2);
+  await expect(items.nth(0)).toContainText("First task");
+  await expect(items.nth(1)).toContainText("Second task");
 
   await page.getByRole("checkbox", { name: "Complete First task" }).check();
 

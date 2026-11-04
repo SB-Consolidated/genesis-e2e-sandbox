@@ -48,7 +48,7 @@ export default [
     },
   },
   {
-    files: ["**/*.js"],
+    files: ["**/*.js", "**/*.mjs"],
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "module",
@@ -60,6 +60,8 @@ export default [
         fetch: "readonly",
         setTimeout: "readonly",
         clearTimeout: "readonly",
+        URL: "readonly",
+        AbortSignal: "readonly",
       },
     },
   },
