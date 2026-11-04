@@ -1,0 +1,22 @@
+# Genesis target repository hygiene.
+# Genesis installs this file when the repository has no .gitignore. When one exists, Genesis appends only
+# the missing lines inside the marked block below and never removes a user line.
+# >>> Genesis hygiene (managed by Genesis) >>>
+.env
+.env.*
+!.env.example
+.genesis/
+.vscode/*.local*
+.gh/
+*.pem
+*.key
+Genesis Execution/logs/preflight-quarantine/
+Genesis Execution/logs/commercial-access/
+test-results.json
+test-results/
+node_modules/
+dist/
+build/
+out/
+coverage/
+# <<< Genesis hygiene (managed by Genesis) <<<

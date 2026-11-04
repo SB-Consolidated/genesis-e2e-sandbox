@@ -1,0 +1,38 @@
+{
+  "version": "1.0",
+  "list_generated_at": "2026-11-03T23:28:26.547Z",
+  "total_tickets": 5,
+  "batch_size": 3,
+  "state": "COMPLETE",
+  "current_batch_id": 2,
+  "batches": [
+    {
+      "batch_id": 1,
+      "ticket_ids": [
+        "TICKET-001",
+        "TICKET-002",
+        "TICKET-003"
+      ],
+      "status": "COMPLETE",
+      "completed_at": "2026-11-03T23:29:41.757Z"
+    },
+    {
+      "batch_id": 2,
+      "ticket_ids": [
+        "TICKET-004",
+        "TICKET-005"
+      ],
+      "status": "COMPLETE",
+      "completed_at": "2026-11-03T23:30:41.959Z"
+    }
+  ],
+  "progress": {
+    "tickets_complete": 6,
+    "tickets_in_progress": 0,
+    "tickets_pending": 0,
+    "batches_complete": 2,
+    "batches_in_progress": 0,
+    "batches_pending": 0
+  },
+  "last_updated": "2026-11-03T23:30:41.960Z"
+}

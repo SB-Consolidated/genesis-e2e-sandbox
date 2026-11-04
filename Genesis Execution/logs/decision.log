@@ -1,0 +1,7 @@
+# Coordinator Decisions Log
+
+Track all Coordinator role decisions, assignments, and gate resolutions.
+
+## Format: [TIMESTAMP] [DECISION_TYPE] [TICKET-ID|PHASE] [DECISION] [RATIONALE]
+
+- Created: 2026-11-03T21:24:45.141Z

@@ -1,0 +1,25 @@
+{
+  "orchestrator_version": "1.0.0",
+  "status": "IDLE",
+  "current_cycle": 0,
+  "coordinator": {
+    "status": "IDLE",
+    "phase": "UNKNOWN",
+    "current_ticket": null,
+    "last_check": null,
+    "next_check": null,
+    "poll_interval_seconds": 30,
+    "progress_percent": 0
+  },
+  "execution": {
+    "status": "IDLE",
+    "phase": "UNKNOWN",
+    "current_ticket": null,
+    "branch": null,
+    "last_check": null,
+    "next_check": null,
+    "poll_interval_seconds": 10,
+    "progress_percent": 0
+  },
+  "last_state_update": null
+}

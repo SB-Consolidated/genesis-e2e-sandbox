@@ -1,0 +1,16 @@
+{
+  "github": {
+    "url": "https://github.com/SB-Consolidated/genesis-e2e-sandbox",
+    "owner": "SB-Consolidated",
+    "repository": "genesis-e2e-sandbox",
+    "defaultBranch": "main",
+    "visibility": "public",
+    "hasToken": false,
+    "connectionStatus": "validated",
+    "validatedAt": "2026-11-03T23:17:29.175Z"
+  },
+  "local": {
+    "path": "/workspace/genesis-e2e/app/strategic-directive-simple-to-do-app",
+    "workspaceName": "strategic-directive-simple-to-do-app"
+  }
+}

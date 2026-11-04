@@ -1,0 +1,16 @@
+{
+  "isSettingUp": true,
+  "currentStep": "0a-2",
+  "validationAttempts": 1,
+  "repositoryConfig": {
+    "github": {
+      "url": "https://github.com/SB-Consolidated/genesis-e2e-sandbox.git",
+      "hasToken": false,
+      "connectionStatus": "pending_validation"
+    },
+    "local": {
+      "path": "/workspace/genesis-e2e/app",
+      "workspaceName": "app"
+    }
+  }
+}

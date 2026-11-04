@@ -1,0 +1,12 @@
+{
+  "state": "uninitialized",
+  "detectedVersion": null,
+  "targetVersion": "v0.9.9",
+  "decision": "INITIALIZE",
+  "reasonId": "UNINITIALIZED_REPOSITORY",
+  "filesInspected": 0,
+  "backupManifestPath": null,
+  "remediation": [
+    "Run Genesis initialization to create the governed baseline."
+  ]
+}
