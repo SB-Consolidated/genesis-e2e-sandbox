@@ -12,6 +12,17 @@ async function clearTaskApiState() {
   }
 }
 
+test.beforeEach(async ({ page }) => {
+  await clearTaskApiState();
+  await page.addInitScript(() => localStorage.clear());
+  await page.goto("/");
+  await page.waitForLoadState("networkidle");
+});
+
+test.afterEach(async () => {
+  await clearTaskApiState();
+});
+
 test("persistence survives refresh and restart for API-backed task state", async ({ page }) => {
   await clearTaskApiState();
 

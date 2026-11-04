@@ -14,9 +14,14 @@ async function clearTaskApiState() {
 
 test.beforeEach(async ({ page }) => {
   await clearTaskApiState();
+  await page.addInitScript(() => localStorage.clear());
   await page.goto("/");
-  await page.evaluate(() => localStorage.clear());
-  await page.reload();
+  await page.waitForLoadState("networkidle");
+  await clearTaskApiState();
+});
+
+test.afterEach(async () => {
+  await clearTaskApiState();
 });
 
 test("single-page task list supports add, toggle, and delete interactions", async ({ page }) => {
