@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import crypto from "node:crypto";
-import { Task } from "../types/task";
+import type { Task } from "../types/task.ts";
 
 export type TaskStorage = {
   list: () => Promise<Task[]>;

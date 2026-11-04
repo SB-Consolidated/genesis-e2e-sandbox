@@ -1,5 +1,5 @@
 import { IncomingMessage, ServerResponse } from "node:http";
-import { TaskStorage } from "../storage/tasks-storage";
+import type { TaskStorage } from "../storage/tasks-storage.ts";
 
 type ApiError = {
   error: string;

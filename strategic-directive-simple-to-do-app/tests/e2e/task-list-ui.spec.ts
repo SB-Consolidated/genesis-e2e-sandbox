@@ -1,6 +1,19 @@
 import { expect, test } from "@playwright/test";
 
+async function clearTaskApiState() {
+  const response = await fetch("http://127.0.0.1:3000/api/tasks");
+  if (!response.ok) {
+    return;
+  }
+
+  const payload = (await response.json()) as { tasks?: Array<{ id: string }> };
+  for (const task of payload.tasks ?? []) {
+    await fetch(`http://127.0.0.1:3000/api/tasks/${task.id}`, { method: "DELETE" });
+  }
+}
+
 test.beforeEach(async ({ page }) => {
+  await clearTaskApiState();
   await page.goto("/");
   await page.evaluate(() => localStorage.clear());
   await page.reload();
@@ -47,7 +60,7 @@ test("completed tasks render below incomplete tasks without creating routes", as
   const items = page.locator("#task-list li");
   await expect(items).toHaveCount(2);
 
-  await items.nth(0).locator("input[type='checkbox']").check();
+  await page.getByRole("checkbox", { name: "Complete First task" }).check();
 
   await expect(items.nth(0)).toContainText("Second task");
   await expect(items.nth(1)).toContainText("First task");

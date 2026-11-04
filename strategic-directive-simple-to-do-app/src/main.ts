@@ -1,13 +1,8 @@
 import "./styles.css";
+import { createTaskClient, sortTasks } from "./api/tasks-client";
+import type { Task } from "./types/task";
 
-type Task = {
-  id: string;
-  title: string;
-  completed: boolean;
-  createdAt: string;
-  updatedAt: string;
-};
-
+const client = createTaskClient();
 const app = document.querySelector<HTMLDivElement>("#app");
 
 if (!app) {
@@ -38,62 +33,126 @@ if (!form || !input || !button || !list || !status) {
 }
 
 let tasks: Task[] = [];
+const pendingTaskIds = new Set<string>();
 
-const saveTasks = () => {
-  localStorage.setItem("tasks", JSON.stringify(tasks));
-};
-
-const loadTasks = () => {
-  const raw = localStorage.getItem("tasks");
-  if (!raw) return;
-
-  try {
-    const parsed = JSON.parse(raw) as Task[];
-    tasks = Array.isArray(parsed) ? parsed : [];
-  } catch {
-    tasks = [];
-  }
-};
-
-const sortTasks = () => {
-  tasks.sort((a, b) => Number(a.completed) - Number(b.completed));
+const setStatus = (message: string, isError = false) => {
+  status.textContent = message;
+  status.dataset.state = isError ? "error" : "success";
 };
 
 const render = () => {
-  sortTasks();
+  const orderedTasks = sortTasks(tasks);
   list.innerHTML = "";
 
-  for (const task of tasks) {
+  for (const currentTask of orderedTasks) {
     const item = document.createElement("li");
-    item.className = task.completed ? "task task-complete" : "task";
+    item.className = currentTask.completed ? "task task-complete" : "task";
 
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
-    checkbox.checked = task.completed;
-    checkbox.setAttribute("aria-label", `Toggle ${task.title}`);
-    checkbox.addEventListener("change", () => {
-      task.completed = checkbox.checked;
-      task.updatedAt = new Date().toISOString();
-      saveTasks();
-      render();
-    });
+    checkbox.checked = currentTask.completed;
+    checkbox.disabled = pendingTaskIds.has(currentTask.id);
+    checkbox.dataset.taskId = currentTask.id;
+    checkbox.setAttribute("aria-label", currentTask.completed ? `Reopen ${currentTask.title}` : `Complete ${currentTask.title}`);
 
     const title = document.createElement("span");
-    title.textContent = task.title;
+    title.textContent = currentTask.title;
 
     const remove = document.createElement("button");
     remove.type = "button";
     remove.className = "delete";
-    remove.setAttribute("aria-label", `Delete ${task.title}`);
+    remove.disabled = pendingTaskIds.has(currentTask.id);
+    remove.dataset.taskId = currentTask.id;
+    remove.setAttribute("aria-label", `Delete ${currentTask.title}`);
     remove.textContent = "🗑";
-    remove.addEventListener("click", () => {
-      tasks = tasks.filter((entry) => entry.id !== task.id);
-      saveTasks();
-      render();
-    });
 
     item.append(checkbox, title, remove);
     list.append(item);
+  }
+};
+
+list.addEventListener("change", async (event) => {
+  const target = event.target;
+  if (!(target instanceof HTMLInputElement) || target.type !== "checkbox") {
+    return;
+  }
+
+  const taskId = target.dataset.taskId;
+  if (!taskId || pendingTaskIds.has(taskId)) {
+    return;
+  }
+
+  const currentTask = tasks.find((task) => task.id === taskId);
+  if (!currentTask) {
+    return;
+  }
+
+  const nextCompleted = target.checked;
+  pendingTaskIds.add(taskId);
+  target.disabled = true;
+
+  try {
+    const updatedTask = await client.toggleTask(taskId, nextCompleted);
+    tasks = await client.listTasks();
+    setStatus(updatedTask.completed ? `Completed “${updatedTask.title}”.` : `Reopened “${updatedTask.title}”.`);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Could not update task.";
+    target.checked = currentTask.completed;
+    setStatus(`Unable to update task: ${message}`, true);
+  } finally {
+    pendingTaskIds.delete(taskId);
+    target.disabled = false;
+    render();
+  }
+});
+
+list.addEventListener("click", async (event) => {
+  const target = event.target;
+  if (!(target instanceof HTMLElement)) {
+    return;
+  }
+
+  const button = target.closest("button.delete");
+  if (!(button instanceof HTMLButtonElement)) {
+    return;
+  }
+
+  const taskId = button.dataset.taskId;
+  if (!taskId || pendingTaskIds.has(taskId)) {
+    return;
+  }
+
+  const currentTask = tasks.find((task) => task.id === taskId);
+  if (!currentTask) {
+    return;
+  }
+
+  pendingTaskIds.add(taskId);
+  button.disabled = true;
+
+  try {
+    await client.deleteTask(taskId);
+    tasks = await client.listTasks();
+    setStatus(`Deleted “${currentTask.title}”.`);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Could not delete task.";
+    setStatus(`Unable to delete task: ${message}`, true);
+  } finally {
+    pendingTaskIds.delete(taskId);
+    button.disabled = false;
+    render();
+  }
+});
+
+const loadTasks = async () => {
+  try {
+    tasks = await client.listTasks();
+    render();
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Unable to load tasks.";
+    setStatus(`Unable to load tasks: ${message}`, true);
+    tasks = [];
+    render();
   }
 };
 
@@ -101,30 +160,32 @@ input.addEventListener("input", () => {
   button.disabled = input.value.trim().length === 0;
 });
 
-form.addEventListener("submit", (event) => {
+form.addEventListener("submit", async (event) => {
   event.preventDefault();
   const title = input.value.trim();
 
   if (!title) {
-    status.textContent = "Enter a task before adding.";
+    setStatus("Enter a task before adding.", true);
     return;
   }
 
-  tasks.push({
-    id: crypto.randomUUID(),
-    title,
-    completed: false,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-  });
-
-  saveTasks();
-  render();
-  input.value = "";
   button.disabled = true;
-  status.textContent = "Task added.";
-  input.focus();
+  setStatus("Adding task...");
+
+  try {
+    const newTask = await client.createTask(title);
+    tasks = await client.listTasks();
+    render();
+    input.value = "";
+    button.disabled = true;
+    setStatus("Task added.");
+    input.focus();
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Could not add task.";
+    setStatus(`Unable to add task: ${message}`, true);
+    button.disabled = input.value.trim().length === 0;
+  }
 });
 
-loadTasks();
+void loadTasks();
 render();
